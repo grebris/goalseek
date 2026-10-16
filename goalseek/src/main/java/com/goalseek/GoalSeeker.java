@@ -14,35 +14,36 @@ public class GoalSeeker {
             return 0.0d;
         }
 
-        // Set the initial values
         double x0 = _gsParams.getMin();
         double x1 = _gsParams.getMax();
+        double target = _gsParams.getTarget();
+        double tolerance = _gsParams.getTolerance();
 
-        // Calculate the initial output and error
-        double y0 = _gsParams.getFunction().applyAsDouble(x0);
-        double e0 = y0 - _gsParams.getTarget();
+        int maxIterations = _gsParams.getMaxIterations();
 
-        for(int i = 0; i < _gsParams.getMaxIterations(); i++) {
-            double y1 = _gsParams.getFunction().applyAsDouble(x1);
-            double e1 = y1 - _gsParams.getTarget();
+        for(int i = 0; i < maxIterations; i++) {
+            double mid = (x0 + x1) / 2.0d;
+            double result = _gsParams.getFunction().applyAsDouble(mid);
 
-            // Exit if the current guess is accurate enough
-            if(Math.abs(e1) < _gsParams.getTolerance()) {
+            // Check if current result is close enough to the target
+            if(Math.abs(result - target) <= tolerance) {
                 _gsParams.setResult(GoalSeekResult.SUCCESS);
-                return x1;
+                return mid;
             }
 
-            // Prevent division by zero
-            if(Double.compare(e0, e1) == 0)
-                break;
-
-            // Calculate the next guess (secant formula)
-            double xn = x1 - (e1 * (x1 - x0)) / (e1 - e0);
-
-            // Update values for the next iteration
-            x0 = x1;
-            x1 = xn;                
-            e0 = e1;
+            // Adjust the boundary values
+            if(_gsParams.getFunction().applyAsDouble(x0) < target) {
+                if(result < target)
+                    x0 = mid;
+                else
+                    x1 = mid;
+            }
+            else {
+                if(result > target)
+                    x0 = mid;
+                else
+                    x1 = mid;
+            }
         }
 
         // Maximum iterations was reached without finding a solution
