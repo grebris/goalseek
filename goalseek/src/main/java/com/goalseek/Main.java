@@ -3,7 +3,7 @@ package com.goalseek;
 public class Main {
     public static void main(String[] args) {
         GoalSeekParams gsParams = new GoalSeekParams();
-        
+
         gsParams.setFunction(n -> 5 / n);
         gsParams.setMin(0.0d);
         gsParams.setMax(120.0d);
@@ -12,6 +12,12 @@ public class Main {
         gsParams.setMaxIterations(20);
 
         double result = GoalSeeker.seek(gsParams);
-        System.out.println(gsParams.getResult().toString() + " : " + result);
+
+        System.out.println
+        (
+            gsParams.getResult().toString() + ": " + 
+            result + " in " + 
+            gsParams.getActIterations() + " iterations"
+        );
     }
 }

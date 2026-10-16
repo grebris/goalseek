@@ -28,6 +28,8 @@ public class GoalSeeker {
             // Check if current result is close enough to the target
             if(Math.abs(result - target) <= tolerance) {
                 _gsParams.setResult(GoalSeekResult.SUCCESS);
+                _gsParams.setActIterations(i);
+
                 return mid;
             }
 

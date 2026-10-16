@@ -4,7 +4,7 @@ import java.util.function.DoubleUnaryOperator;
 
 public class GoalSeekParams {
     public GoalSeekParams() {}
-    
+
     private GoalSeekResult result;    
     private DoubleUnaryOperator function;
 
@@ -15,6 +15,7 @@ public class GoalSeekParams {
     private double tolerance;
 
     private int maxIterations;
+    private int actIterations;
 
     public void setResult(GoalSeekResult _result) { result = _result; }
     public GoalSeekResult getResult() {return result; }
@@ -36,4 +37,7 @@ public class GoalSeekParams {
 
     public void setMaxIterations(int _maxIterations) { maxIterations = _maxIterations; }
     public int getMaxIterations() { return maxIterations; }
+
+    public void setActIterations(int _actIterations) { actIterations = _actIterations; }
+    public int getActIterations() { return actIterations; }
 }
