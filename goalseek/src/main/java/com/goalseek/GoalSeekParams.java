@@ -3,8 +3,6 @@ package com.goalseek;
 import java.util.function.DoubleUnaryOperator;
 
 public class GoalSeekParams {
-    public GoalSeekParams() {}
-
     private GoalSeekResult result;    
     private DoubleUnaryOperator function;
 
@@ -40,4 +38,60 @@ public class GoalSeekParams {
 
     public void setActIterations(int _actIterations) { actIterations = _actIterations; }
     public int getActIterations() { return actIterations; }
+    
+    public GoalSeekParams() {}
+
+    public GoalSeekParams
+    (
+        DoubleUnaryOperator _function,
+        double _min,
+        double _max,
+        double _target,
+        double _tolerance,
+        int _maxIterations
+    ) {
+        function = _function;
+        min = _min;
+        max = _max;
+        target = _target;
+        tolerance = _tolerance;
+        maxIterations = _maxIterations;
+    }
+
+    public GoalSeekParams
+    (
+        DoubleUnaryOperator _function,
+        double _min,
+        double _max,
+        double _target
+    ) {
+        this
+        (
+            _function, 
+            _min, 
+            _max, 
+            _target, 
+            0.01d, 
+            1000
+        );
+    }
+
+    public GoalSeekParams
+    (
+        DoubleUnaryOperator _function,
+        double _min,
+        double _max,
+        double _target,
+        double _tolerance
+    ) {
+        this
+        (
+            _function, 
+            _min, 
+            _max, 
+            _target, 
+            _tolerance, 
+            1000
+        );
+    }    
 }
